@@ -98,7 +98,7 @@ erDiagram
 
 ## 🌐 Live Public Link
 You can access and share the live application over the internet at:
-**[https://twice-joe-relax-saw.trycloudflare.com](https://twice-joe-relax-saw.trycloudflare.com)**
+**[https://permapath.vercel.app/](https://permapath.vercel.app/)**
 *(Secured with Cloudflare Edge SSL — No password or configuration required)*
 
 ---
@@ -121,7 +121,7 @@ npm run dev
 ```
 
 ### 3. Open in Browser
-Visit: **[http://localhost:3000](http://localhost:3000)**
+Visit: **[https://permapath.vercel.app/](https://permapath.vercel.app/)**
 
 ---
 
