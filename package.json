@@ -18,7 +18,7 @@
     "sql-studio",
     "pfms-dbt"
   ],
-  "author": "Apex University DBMS Engineering Team",
+  "author": "Uday Kiran (Apex University DBMS Engineering Team)",
   "license": "MIT",
   "dependencies": {
     "cors": "^2.8.5",
