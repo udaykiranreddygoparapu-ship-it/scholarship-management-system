@@ -96,10 +96,17 @@ erDiagram
 
 ---
 
-## 🌐 Live Public Link
+## 🌐 Live Public Link & Permanent Cloud Deployment
+
+### 1. Current Live Link (Local Tunnel)
 You can access and share the live application over the internet at:
 **[https://permapath.vercel.app/](https://permapath.vercel.app/)**
 *(Secured with Cloudflare Edge SSL — No password or configuration required)*
+
+### 2. Permanent 24/7 Cloud URL (Render.com)
+Deploy this repository to **Render** for a free, permanent 24/7 live URL (`https://<your-app-name>.onrender.com`) that never changes and stays online even when your computer is shut down:
+
+[![Deploy to Render](https://render.com/images/deploy-to-render-button.svg)](https://render.com/deploy?repo=https://github.com/udaykiranreddygoparapu-ship-it/scholarship-management-system)
 
 ---
 
