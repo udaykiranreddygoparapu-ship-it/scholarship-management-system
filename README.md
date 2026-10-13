@@ -98,7 +98,7 @@ erDiagram
 
 ## 🌐 Live Public Link
 You can access and share the live application over the internet at:
-**[https://bluetooth-entrepreneur-stainless-extended.trycloudflare.com](https://bluetooth-entrepreneur-stainless-extended.trycloudflare.com)**
+**[https://twice-joe-relax-saw.trycloudflare.com](https://twice-joe-relax-saw.trycloudflare.com)**
 *(Secured with Cloudflare Edge SSL — No password or configuration required)*
 
 ---
