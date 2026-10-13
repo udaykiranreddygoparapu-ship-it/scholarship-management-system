@@ -1,0 +1,55 @@
+# ==============================================================================
+# Git Ignore Configuration for University Scholarship & Financial Aid System
+# ==============================================================================
+
+# Node dependencies
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
+
+# Environment and secrets
+.env
+.env.production
+.env.staging
+.env.local
+.env.*.local
+
+# Executables & Binaries
+*.exe
+cloudflared.exe
+cloudflared
+*.bin
+*.out
+
+# Operating System Files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+Desktop.ini
+
+# IDE & Code Editor Files
+.idea/
+.vscode/
+*.sublime-project
+*.sublime-workspace
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.swp
+*.swo
+
+# Temporary, Scratch & System Generated Files
+*.tmp
+*.temp
+scratch/
+.system_generated/
+logs/
+*.log

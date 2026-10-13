@@ -1,0 +1,479 @@
+/* ==========================================================================
+   UNIVERSITY SCHOLARSHIP AND FINANCIAL AID MANAGEMENT SYSTEM (SFAMS)
+   Interactive Visuals Stylesheet: Charts, ER Diagram, SQL Studio & Pipeline
+   ========================================================================== */
+
+/* --------------------------------------------------------------------------
+   1. CHARTS & ANALYTICS WIDGETS
+   -------------------------------------------------------------------------- */
+.charts-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(460px, 1fr));
+    gap: 20px;
+    margin-bottom: 24px;
+}
+
+.chart-card {
+    background: #ffffff;
+    border: 1px solid var(--border-color);
+    border-radius: var(--border-radius-lg);
+    padding: 20px 24px;
+    box-shadow: var(--shadow-xs);
+    display: flex;
+    flex-direction: column;
+}
+
+.chart-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 16px;
+}
+
+.chart-title {
+    font-size: 1rem;
+    font-weight: 600;
+    color: var(--primary-900);
+}
+
+.chart-subtitle {
+    font-size: 0.78rem;
+    color: var(--primary-500);
+}
+
+.chart-body {
+    flex: 1;
+    min-height: 240px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+}
+
+/* Custom SVG Horizontal Bar Chart */
+.bar-chart-container {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.bar-row {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.bar-label-group {
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.8rem;
+}
+
+.bar-label {
+    font-weight: 500;
+    color: var(--primary-800);
+    max-width: 80%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.bar-val {
+    font-weight: 600;
+    color: var(--accent-blue);
+}
+
+.bar-track {
+    height: 10px;
+    background: var(--bg-surface-alt);
+    border-radius: 5px;
+    overflow: hidden;
+    position: relative;
+}
+
+.bar-fill {
+    height: 100%;
+    border-radius: 5px;
+    background: linear-gradient(90deg, #2563eb, #3b82f6);
+    transition: width 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.bar-fill.emerald { background: linear-gradient(90deg, #059669, #10b981); }
+.bar-fill.purple { background: linear-gradient(90deg, #7c3aed, #8b5cf6); }
+.bar-fill.amber { background: linear-gradient(90deg, #d97706, #f59e0b); }
+
+/* Donut Chart with Legend */
+.donut-layout {
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    width: 100%;
+    flex-wrap: wrap;
+    gap: 16px;
+}
+
+.donut-legend {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    font-size: 0.82rem;
+}
+
+.donut-legend-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.legend-color-dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+}
+
+/* --------------------------------------------------------------------------
+   2. APPLICATION 7-STAGE PIPELINE STEPPER
+   -------------------------------------------------------------------------- */
+.pipeline-container {
+    padding: 16px 0;
+    margin-bottom: 20px;
+}
+
+.pipeline-stepper {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    position: relative;
+}
+
+.pipeline-step {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    position: relative;
+}
+
+.pipeline-step:not(:last-child)::after {
+    content: '';
+    position: absolute;
+    top: 15px;
+    left: 50%;
+    width: 100%;
+    height: 3px;
+    background: var(--border-color);
+    z-index: 1;
+}
+
+.pipeline-step.completed:not(:last-child)::after {
+    background: var(--success);
+}
+
+.pipeline-icon {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    background: #ffffff;
+    border: 2px solid var(--border-color);
+    color: var(--primary-500);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.82rem;
+    font-weight: 700;
+    position: relative;
+    z-index: 2;
+    transition: all var(--transition-fast);
+}
+
+.pipeline-step.completed .pipeline-icon {
+    border-color: var(--success);
+    background: var(--success);
+    color: #ffffff;
+}
+
+.pipeline-step.current .pipeline-icon {
+    border-color: var(--accent-blue);
+    background: var(--accent-blue);
+    color: #ffffff;
+    box-shadow: 0 0 0 4px rgba(37, 99, 235, 0.2);
+}
+
+.pipeline-title {
+    font-size: 0.76rem;
+    font-weight: 600;
+    margin-top: 8px;
+    color: var(--primary-600);
+    max-width: 110px;
+}
+
+.pipeline-step.current .pipeline-title {
+    color: var(--accent-blue);
+    font-weight: 700;
+}
+
+.pipeline-step.completed .pipeline-title {
+    color: var(--primary-900);
+}
+
+/* --------------------------------------------------------------------------
+   3. DBMS EXPLORER & SQL STUDIO
+   -------------------------------------------------------------------------- */
+.sql-studio-grid {
+    display: grid;
+    grid-template-columns: 320px 1fr;
+    gap: 20px;
+}
+
+.sql-sidebar {
+    background: #ffffff;
+    border: 1px solid var(--border-color);
+    border-radius: var(--border-radius-lg);
+    padding: 18px;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    max-height: 80vh;
+    overflow-y: auto;
+}
+
+.sql-preset-group {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.sql-preset-header {
+    font-size: 0.75rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    color: var(--primary-500);
+    letter-spacing: 0.05em;
+    padding-bottom: 4px;
+}
+
+.sql-preset-btn {
+    text-align: left;
+    padding: 8px 10px;
+    border-radius: 6px;
+    background: var(--bg-surface-alt);
+    border: 1px solid transparent;
+    font-size: 0.8rem;
+    font-weight: 500;
+    color: var(--primary-800);
+    cursor: pointer;
+    transition: all var(--transition-fast);
+}
+
+.sql-preset-btn:hover {
+    background: #e2e8f0;
+    border-color: #cbd5e1;
+    color: var(--accent-blue);
+}
+
+.sql-preset-btn.active {
+    background: var(--accent-blue-light);
+    border-color: #bfdbfe;
+    color: var(--accent-blue);
+    font-weight: 600;
+}
+
+/* SQL Console Box */
+.sql-editor-container {
+    background: #0f172a;
+    border-radius: var(--border-radius-md);
+    padding: 16px;
+    box-shadow: var(--shadow-md);
+    margin-bottom: 16px;
+}
+
+.sql-editor-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 10px;
+}
+
+.sql-editor-title {
+    color: #94a3b8;
+    font-size: 0.75rem;
+    font-family: var(--font-mono);
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+}
+
+.sql-editor-textarea {
+    width: 100%;
+    min-height: 140px;
+    background: transparent;
+    border: none;
+    outline: none;
+    color: #38bdf8;
+    font-family: var(--font-mono);
+    font-size: 0.9rem;
+    line-height: 1.6;
+    resize: vertical;
+}
+
+.sql-result-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px 16px;
+    background: var(--bg-surface-alt);
+    border: 1px solid var(--border-color);
+    border-radius: 8px 8px 0 0;
+    font-size: 0.82rem;
+}
+
+.execution-time-badge {
+    background: #dbeafe;
+    color: #1e40af;
+    padding: 2px 8px;
+    border-radius: 12px;
+    font-weight: 600;
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+}
+
+/* --------------------------------------------------------------------------
+   4. RELATIONAL ER DIAGRAM VISUALIZER
+   -------------------------------------------------------------------------- */
+.er-diagram-container {
+    background: #0f172a;
+    border-radius: var(--border-radius-lg);
+    padding: 24px;
+    overflow-x: auto;
+    color: #f8fafc;
+}
+
+.er-diagram-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 20px;
+}
+
+.er-table-card {
+    background: #1e293b;
+    border: 1px solid #334155;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: var(--shadow-sm);
+    transition: transform var(--transition-fast);
+}
+
+.er-table-card:hover {
+    border-color: #38bdf8;
+    transform: translateY(-2px);
+}
+
+.er-table-header {
+    background: #0f172a;
+    padding: 10px 14px;
+    border-bottom: 1px solid #334155;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.er-table-name {
+    font-family: var(--font-mono);
+    font-weight: 700;
+    font-size: 0.88rem;
+    color: #38bdf8;
+}
+
+.er-table-badge {
+    font-size: 0.68rem;
+    padding: 2px 6px;
+    border-radius: 4px;
+    background: rgba(56, 189, 248, 0.2);
+    color: #7dd3fc;
+}
+
+.er-columns-list {
+    padding: 8px 12px;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    font-size: 0.78rem;
+    font-family: var(--font-mono);
+}
+
+.er-column-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 2px 0;
+    color: #cbd5e1;
+}
+
+.er-col-key {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+}
+
+.key-pk {
+    color: #fbbf24;
+    font-weight: 700;
+    font-size: 0.7rem;
+}
+
+.key-fk {
+    color: #a78bfa;
+    font-weight: 700;
+    font-size: 0.7rem;
+}
+
+.er-col-type {
+    color: #94a3b8;
+    font-size: 0.7rem;
+}
+
+/* --------------------------------------------------------------------------
+   5. PRINTABLE OFFICIAL VOUCHERS & SANCTION LETTERS
+   -------------------------------------------------------------------------- */
+.official-letterhead {
+    border: 2px solid #0f172a;
+    padding: 32px;
+    background: #ffffff;
+    font-family: 'Times New Roman', Times, serif;
+    color: #000000;
+    margin: 20px 0;
+}
+
+.letterhead-header {
+    text-align: center;
+    border-bottom: 2px solid #000000;
+    padding-bottom: 14px;
+    margin-bottom: 20px;
+}
+
+.letterhead-univ-name {
+    font-size: 1.4rem;
+    font-weight: bold;
+    text-transform: uppercase;
+}
+
+.letterhead-sub {
+    font-size: 0.95rem;
+    font-style: italic;
+}
+
+@media print {
+    body * {
+        visibility: hidden;
+    }
+    #printable-area, #printable-area * {
+        visibility: visible;
+    }
+    #printable-area {
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 100%;
+    }
+}

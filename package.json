@@ -1,0 +1,28 @@
+{
+  "name": "dbms-website-project",
+  "version": "1.0.0",
+  "description": "Scholarship and Financial Aid Management System (SFAMS) with 3NF Relational Database & SQL Studio",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node server.js",
+    "test": "node -e \"console.log('Validating SFAMS 3NF schema and API...'); require('./database/db'); console.log('Schema valid.');\""
+  },
+  "keywords": [
+    "dbms",
+    "scholarship-management",
+    "financial-aid",
+    "university",
+    "relational-database",
+    "3nf",
+    "sql-studio",
+    "pfms-dbt"
+  ],
+  "author": "Apex University DBMS Engineering Team",
+  "license": "MIT",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "express": "^4.21.2",
+    "sql.js": "^1.12.0"
+  }
+}

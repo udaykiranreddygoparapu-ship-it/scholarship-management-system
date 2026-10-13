@@ -1,0 +1,402 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Apex University - Scholarship & Financial Aid Management System (SFAMS)</title>
+    <meta name="description" content="Centralized University Scholarship and Financial Aid Management System built with a 3NF Relational Database Architecture.">
+    
+    <!-- Google Fonts: Inter & Outfit -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Outfit:wght@500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+    
+    <!-- Design System Stylesheets -->
+    <link rel="stylesheet" href="css/main.css">
+    <link rel="stylesheet" href="css/components.css">
+    <link rel="stylesheet" href="css/charts-er.css">
+</head>
+<body>
+    <!-- ===================================================================
+         PORTAL GATEWAY / USER FACE ENTRY SCREEN
+         =================================================================== -->
+    <div id="portal-gateway" style="display: none;">
+        <header class="gateway-header">
+            <div class="gateway-brand">
+                <div class="gateway-logo-badge">🎓</div>
+                <div>
+                    <div class="gateway-brand-title">CENTRAL APEX UNIVERSITY</div>
+                    <div class="gateway-brand-sub">Scholarship & Financial Aid Management System (SFAMS)</div>
+                </div>
+            </div>
+            <div style="display: flex; align-items: center; gap: 12px;">
+                <div class="topbar-session-badge" style="font-size: 0.8rem;">
+                    <span>🏛️</span>
+                    <span>Session: AY 2026-27</span>
+                </div>
+                <button class="btn btn-secondary btn-sm" onclick="App.showLoginModal()">
+                    🔑 Login by Credentials
+                </button>
+            </div>
+        </header>
+
+        <div class="gateway-content">
+            <div class="gateway-hero">
+                <div class="gateway-hero-tag">
+                    <span>⚡ 3NF Relational Database & RBAC Identity Isolation</span>
+                </div>
+                <h1 class="gateway-hero-title">Apex University Single Sign-On</h1>
+                <p class="gateway-hero-desc">
+                    Central Financial Aid & Scholarship Governance Portal (AY 2026-27). Secure access strictly isolated to authenticated personal student records and authorized faculty.
+                </p>
+            </div>
+
+            <div class="portal-auth-wrapper">
+                <!-- 3 TAB BUTTONS -->
+                <div class="portal-tabs-nav" role="tablist">
+                    <button class="portal-tab-btn active student-tab" id="tab-btn-student" onclick="App.switchPortalTab('student')" type="button">
+                        <span>🎓</span>
+                        <span>Student Portal</span>
+                    </button>
+                    <button class="portal-tab-btn faculty-tab" id="tab-btn-faculty" onclick="App.switchPortalTab('faculty')" type="button">
+                        <span>👨‍🏫</span>
+                        <span>Faculty Desk</span>
+                    </button>
+                    <button class="portal-tab-btn admin-tab" id="tab-btn-admin" onclick="App.switchPortalTab('admin')" type="button">
+                        <span>🏛️</span>
+                        <span>Directorate</span>
+                    </button>
+                </div>
+
+                <!-- AUTHENTICATION CARD -->
+                <div class="portal-auth-card">
+                    <div class="portal-card-banner student-theme" id="portal-banner">
+                        <div class="portal-icon-circle" id="portal-icon">🎓</div>
+                        <span class="portal-role-tag" id="portal-role-badge">Student Access</span>
+                        <h2 class="portal-card-title" id="portal-title">Student Scholarship Portal</h2>
+                        <div class="portal-card-sub" id="portal-subtitle">Sign in with your student roll number or username to view only your personal data</div>
+                    </div>
+
+                    <form class="portal-card-body" onsubmit="App.handlePortalSubmit(event)">
+                        <div class="portal-form-group">
+                            <label class="portal-form-label" id="portal-label-username">
+                                Student Roll Number or Username <span class="required">*</span>
+                            </label>
+                            <div class="portal-input-wrap">
+                                <span class="portal-input-icon">👤</span>
+                                <input 
+                                    type="text" 
+                                    id="portal-username" 
+                                    class="portal-input-field" 
+                                    placeholder="e.g. 25WU0102085 or rahul.sharma" 
+                                    required 
+                                    autocomplete="username"
+                                >
+                            </div>
+                        </div>
+
+                        <div class="portal-form-group">
+                            <label class="portal-form-label">
+                                Password <span class="required">*</span>
+                            </label>
+                            <div class="portal-input-wrap">
+                                <span class="portal-input-icon">🔑</span>
+                                <input 
+                                    type="password" 
+                                    id="portal-password" 
+                                    class="portal-input-field" 
+                                    placeholder="Enter your account password" 
+                                    required 
+                                    autocomplete="current-password"
+                                >
+                            </div>
+                        </div>
+
+                        <button type="submit" id="portal-submit-btn" class="portal-auth-submit-btn">
+                            <span id="portal-submit-text">Sign In to Student Portal</span>
+                            <span>&rarr;</span>
+                        </button>
+
+                        <div class="portal-privacy-note">
+                            <span style="font-size: 1.1rem;">🔒</span>
+                            <span><strong>Strict Privacy Guaranteed:</strong> Your dashboard shows strictly your personal academic standing, applications, and DBT account. No other students' data is accessible.</span>
+                        </div>
+                    </form>
+                </div>
+
+                <!-- DEMO TEST CREDENTIALS COLLAPSED HELPER (NO PRIVATE DATA EXPOSED) -->
+                <details class="portal-credentials-drawer">
+                    <summary>
+                        <span>🔑 Testing & Evaluation Credentials (Click to view test logins)</span>
+                    </summary>
+                    <div class="portal-credentials-list">
+                        <div class="portal-cred-card" onclick="App.quickFillPortal('25WU0102085', 'student123', 'student')">
+                            <div>
+                                <div class="cred-role">🎓 Student 1 (Merit Scholar)</div>
+                                <div class="cred-val">Roll: <code>25WU0102085</code> &bull; Pass: <code>student123</code></div>
+                            </div>
+                            <span class="cred-fill-tag">Auto-Fill &rarr;</span>
+                        </div>
+                        <div class="portal-cred-card" onclick="App.quickFillPortal('25WU0102086', 'student123', 'student')">
+                            <div>
+                                <div class="cred-role">🎓 Student 2 (Pragati Scholar)</div>
+                                <div class="cred-val">Roll: <code>25WU0102086</code> &bull; Pass: <code>student123</code></div>
+                            </div>
+                            <span class="cred-fill-tag">Auto-Fill &rarr;</span>
+                        </div>
+                        <div class="portal-cred-card" onclick="App.quickFillPortal('verifier', 'verifier123', 'faculty')">
+                            <div>
+                                <div class="cred-role">👨‍🏫 Document Verification Desk</div>
+                                <div class="cred-val">User: <code>verifier</code> &bull; Pass: <code>verifier123</code></div>
+                            </div>
+                            <span class="cred-fill-tag">Auto-Fill &rarr;</span>
+                        </div>
+                        <div class="portal-cred-card" onclick="App.quickFillPortal('admin', 'admin123', 'admin')">
+                            <div>
+                                <div class="cred-role">🏛️ Directorate / DSW Administrator</div>
+                                <div class="cred-val">User: <code>admin</code> &bull; Pass: <code>admin123</code></div>
+                            </div>
+                            <span class="cred-fill-tag">Auto-Fill &rarr;</span>
+                        </div>
+                    </div>
+                </details>
+            </div>
+        </div>
+
+        <footer class="gateway-footer">
+            <div>
+                <strong>Central Apex University</strong> &bull; Scholarship & Financial Aid System (SFAMS)
+            </div>
+            <div>
+                <span>Database: 3NF Normalized Relational (15 Tables, 5 Views)</span>
+                <span> &bull; </span>
+                <span>Role-Based Access Control (RBAC)</span>
+            </div>
+        </footer>
+    </div>
+
+    <div id="app-root">
+        <!-- ===================================================================
+             SIDEBAR NAVIGATION
+             =================================================================== -->
+        <aside id="sidebar">
+            <div class="sidebar-header">
+                <div class="sidebar-brand-icon">
+                    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+                        <path d="M22 10v6M2 10l10-5 10 5-10 5z"/>
+                        <path d="M6 12v5c3 3 9 3 12 0v-5"/>
+                    </svg>
+                </div>
+                <div class="sidebar-brand-text">
+                    <span class="sidebar-brand-title">APEX SFAMS</span>
+                    <span class="sidebar-brand-subtitle">Scholarship Portal</span>
+                </div>
+            </div>
+
+            <div class="sidebar-nav-container">
+                <div class="nav-section-title">Core Operations</div>
+                
+                <a class="nav-item active" data-view="dashboard" onclick="App.navigate('dashboard')">
+                    <span class="nav-icon">📊</span>
+                    <span>Dashboard</span>
+                </a>
+
+                <a class="nav-item" data-view="students" onclick="App.navigate('students')">
+                    <span class="nav-icon">🎓</span>
+                    <span>Students</span>
+                </a>
+
+                <a class="nav-item" data-view="schemes" onclick="App.navigate('schemes')">
+                    <span class="nav-icon">📜</span>
+                    <span>Scholarship Schemes</span>
+                </a>
+
+                <a class="nav-item" data-view="applications" onclick="App.navigate('applications')">
+                    <span class="nav-icon">📝</span>
+                    <span>Applications</span>
+                </a>
+
+                <a class="nav-item" data-view="eligibility" onclick="App.navigate('eligibility')">
+                    <span class="nav-icon">⚖️</span>
+                    <span>Eligibility Engine</span>
+                </a>
+
+                <div class="nav-section-title">Workflow Governance</div>
+
+                <a class="nav-item" data-view="verification" onclick="App.navigate('verification')">
+                    <span class="nav-icon">🛡️</span>
+                    <span>Document Verification</span>
+                </a>
+
+                <a class="nav-item" data-view="approvals" onclick="App.navigate('approvals')">
+                    <span class="nav-icon">✅</span>
+                    <span>Approvals Desk</span>
+                </a>
+
+                <a class="nav-item" data-view="sanctions" onclick="App.navigate('sanctions')">
+                    <span class="nav-icon">🏛️</span>
+                    <span>Sanctions</span>
+                </a>
+
+                <div class="nav-section-title">Finance & Treasury</div>
+
+                <a class="nav-item" data-view="bank" onclick="App.navigate('bank')">
+                    <span class="nav-icon">🏦</span>
+                    <span>Bank Details</span>
+                </a>
+
+                <a class="nav-item" data-view="disbursements" onclick="App.navigate('disbursements')">
+                    <span class="nav-icon">💸</span>
+                    <span>Disbursements (DBT)</span>
+                </a>
+
+                <a class="nav-item" data-view="renewals" onclick="App.navigate('renewals')">
+                    <span class="nav-icon">🔄</span>
+                    <span>Renewals</span>
+                </a>
+
+                <div class="nav-section-title">Analytics & Academic DBMS</div>
+
+                <a class="nav-item" data-view="reports" onclick="App.navigate('reports')">
+                    <span class="nav-icon">📈</span>
+                    <span>Reports & Audits</span>
+                </a>
+
+                <a class="nav-item" data-view="sql_studio" onclick="App.navigate('sql_studio')" style="background: rgba(37, 99, 235, 0.2); border: 1px solid rgba(59, 130, 246, 0.4);">
+                    <span class="nav-icon">⚡</span>
+                    <span style="font-weight: 700; color: #93c5fd;">SQL Studio & ER (DBMS)</span>
+                </a>
+
+                <a class="nav-item" data-view="users" onclick="App.navigate('users')">
+                    <span class="nav-icon">👥</span>
+                    <span>Users & Roles</span>
+                </a>
+
+                <a class="nav-item" data-view="settings" onclick="App.navigate('settings')">
+                    <span class="nav-icon">⚙️</span>
+                    <span>Settings</span>
+                </a>
+            </div>
+
+            <div class="sidebar-footer">
+                <div class="sidebar-db-status">
+                    <div class="db-pulse"></div>
+                    <div>
+                        <strong>3NF Relational DB Online</strong>
+                        <div style="font-size: 0.68rem; color: #94a3b8;">15 Tables | 5 Views | ACID</div>
+                    </div>
+                </div>
+            </div>
+        </aside>
+
+        <!-- ===================================================================
+             MAIN LAYOUT AREA
+             =================================================================== -->
+        <div id="layout-main">
+            <!-- TOPBAR -->
+            <header id="topbar">
+                <div class="topbar-left">
+                    <button class="mobile-menu-btn" id="mobile-menu-toggle" aria-label="Toggle navigation drawer">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <line x1="3" y1="12" x2="21" y2="12"></line>
+                            <line x1="3" y1="6" x2="21" y2="6"></line>
+                            <line x1="3" y1="18" x2="21" y2="18"></line>
+                        </svg>
+                    </button>
+
+                    <div class="topbar-session-badge">
+                        <span>🏛️</span>
+                        <span>Session: AY 2026-27</span>
+                    </div>
+
+                    <div class="topbar-search-box">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <circle cx="11" cy="11" r="8"></circle>
+                            <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+                        </svg>
+                        <input type="text" id="topbar-global-search" placeholder="Search application, student or roll...">
+                    </div>
+                </div>
+
+                <div class="topbar-right">
+                    <!-- ROLE SWITCHER DROPDOWN (ONLY VISIBLE FOR ADMIN/STAFF; HIDDEN FOR STUDENTS) -->
+                    <div class="role-switcher-container" id="topbar-role-container">
+                        <span class="role-switcher-label">Role Switcher:</span>
+                        <select class="role-select" id="topbar-role-select">
+                            <option value="ROLE_ADMIN">System Administrator</option>
+                            <option value="ROLE_STUDENT">Student Portal</option>
+                            <option value="ROLE_VERIFIER">Document Verification Officer</option>
+                            <option value="ROLE_APPROVER">Approving Authority / Dean</option>
+                            <option value="ROLE_FINANCE">Finance & Accounts Officer</option>
+                        </select>
+                    </div>
+
+                    <!-- USER AVATAR & TITLE -->
+                    <div class="topbar-user-profile">
+                        <div class="user-avatar" id="topbar-user-avatar">--</div>
+                        <div class="user-meta">
+                            <span class="user-name" id="topbar-user-name">Authenticated User</span>
+                            <span class="user-role-badge" id="topbar-user-role">Portal Session</span>
+                        </div>
+                    </div>
+
+                    <!-- EXIT PORTAL / LOGOUT BUTTON -->
+                    <button class="btn btn-sm" id="topbar-logout-btn" onclick="App.logout()" title="Exit Workspace and Return to Portal Gateway" style="display: inline-flex; align-items: center; gap: 6px; background: #fff1f2; border: 1px solid #fecaca; color: #e11d48; font-weight: 600; padding: 6px 12px; border-radius: 8px;">
+                        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+                            <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path>
+                            <polyline points="16 17 21 12 16 7"></polyline>
+                            <line x1="21" y1="12" x2="9" y2="12"></line>
+                        </svg>
+                        <span>Exit Portal</span>
+                    </button>
+                </div>
+            </header>
+
+            <!-- MAIN CONTENT CONTAINER (DYNAMICALLY INJECTED) -->
+            <main id="main-content">
+                <div style="text-align: center; padding: 60px;">
+                    <div class="spinner"></div>
+                    <p style="margin-top: 14px; color: var(--primary-500);">Initializing University Scholarship Portal...</p>
+                </div>
+            </main>
+
+            <!-- FOOTER -->
+            <footer class="app-footer">
+                <div>
+                    <strong>Central Apex University</strong> &bull; Scholarship and Financial Aid Management System (SFAMS)
+                </div>
+                <div class="footer-meta">
+                    <span>Database: MySQL / SQLite 3NF Normalized</span>
+                    <span>&bull;</span>
+                    <span>Course: Database Management Systems (DBMS)</span>
+                </div>
+            </footer>
+        </div>
+    </div>
+
+    <!-- UI Overlay Containers -->
+    <div id="toast-container"></div>
+    <div id="app-modal-overlay" class="modal-overlay"></div>
+
+    <!-- Application JavaScript Modules -->
+    <script src="js/api.js"></script>
+    <script src="js/utils.js"></script>
+    <script src="js/charts.js"></script>
+    <script src="js/views/dashboard.js"></script>
+    <script src="js/views/students.js"></script>
+    <script src="js/views/schemes.js"></script>
+    <script src="js/views/applications.js"></script>
+    <script src="js/views/eligibility.js"></script>
+    <script src="js/views/verification.js"></script>
+    <script src="js/views/approvals.js"></script>
+    <script src="js/views/sanctions.js"></script>
+    <script src="js/views/bank.js"></script>
+    <script src="js/views/disbursements.js"></script>
+    <script src="js/views/renewals.js"></script>
+    <script src="js/views/reports.js"></script>
+    <script src="js/views/sql_studio.js"></script>
+    <script src="js/views/users.js"></script>
+    <script src="js/views/settings.js"></script>
+    <script src="js/app.js"></script>
+</body>
+</html>
