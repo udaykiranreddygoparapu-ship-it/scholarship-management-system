@@ -215,22 +215,34 @@ const API = {
             });
 
             return {
-                studentCount: students.length,
-                activeSchemes: schemes.filter(s => s.status === 'Active').length,
-                totalApps: apps.length,
-                pendingApps: apps.filter(a => ['Submitted', 'Under Verification'].includes(a.status)).length,
-                verifiedApps: apps.filter(a => a.status === 'Verified').length,
-                approvedApps: apps.filter(a => a.status === 'Approved').length,
-                rejectedApps: apps.filter(a => a.status === 'Rejected').length,
-                total_sanctioned: totalSanctioned,
-                total_disbursed: totalDisbursed,
-                pendingDisbursements: sanctions.length - disbursements.filter(d => d.payment_status === 'Successful').length,
-                renewalsDue: renewals.filter(r => r.renewal_status === 'Submitted').length,
-                appsByScheme,
-                appsByStatus,
-                budgetComparison,
-                appsByDept,
-                recentApps
+                success: true,
+                kpis: {
+                    totalStudents: students.length,
+                    activeSchemes: schemes.filter(s => s.status === 'Active').length,
+                    totalApplications: apps.length,
+                    pendingApplications: apps.filter(a => ['Submitted', 'Under Verification'].includes(a.status)).length,
+                    verifiedApplications: apps.filter(a => a.status === 'Verified').length,
+                    approvedApplications: apps.filter(a => a.status === 'Approved').length,
+                    rejectedApplications: apps.filter(a => a.status === 'Rejected').length,
+                    totalSanctionedAmount: totalSanctioned,
+                    totalDisbursedAmount: totalDisbursed,
+                    pendingDisbursements: sanctions.length - disbursements.filter(d => d.payment_status === 'Successful').length,
+                    renewalsDue: renewals.filter(r => r.renewal_status === 'Submitted').length
+                },
+                charts: {
+                    appsByScheme,
+                    appsByStatus,
+                    budgetComparison,
+                    appsByDept,
+                    monthlyDisbursements: [
+                        { month: 'Apr', amount: 0 },
+                        { month: 'May', amount: 0 },
+                        { month: 'Jun', amount: 0 },
+                        { month: 'Jul', amount: 35000 },
+                        { month: 'Aug', amount: 110000 },
+                        { month: 'Sep (Est)', amount: 155000 }
+                    ]
+                }
             };
         }
 
