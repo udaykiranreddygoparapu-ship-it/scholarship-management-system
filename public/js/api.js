@@ -6,7 +6,25 @@
 const API = {
     baseUrl: '/api',
 
+    async parseResponse(res) {
+        if (window.location.protocol === 'file:') {
+            throw new Error("You are viewing index.html via file://. Please run 'npm start' and open http://localhost:3000 in your browser.");
+        }
+        const text = await res.text();
+        try {
+            return JSON.parse(text);
+        } catch (err) {
+            if (!res.ok) {
+                throw new Error(`Server returned HTTP ${res.status}. Please ensure the Node backend server is running on http://localhost:3000.`);
+            }
+            throw new Error("Received non-JSON response from server. Please verify your backend server connection.");
+        }
+    },
+
     async get(endpoint, params = {}) {
+        if (window.location.protocol === 'file:') {
+            throw new Error("You are viewing index.html via file://. Please run 'npm start' and open http://localhost:3000 in your browser.");
+        }
         const url = new URL(this.baseUrl + endpoint, window.location.origin);
         Object.keys(params).forEach(key => {
             if (params[key] !== undefined && params[key] !== null) {
@@ -14,25 +32,31 @@ const API = {
             }
         });
         const res = await fetch(url);
-        return res.json();
+        return this.parseResponse(res);
     },
 
     async post(endpoint, body = {}) {
+        if (window.location.protocol === 'file:') {
+            throw new Error("You are viewing index.html via file://. Please run 'npm start' and open http://localhost:3000 in your browser.");
+        }
         const res = await fetch(this.baseUrl + endpoint, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(body)
         });
-        return res.json();
+        return this.parseResponse(res);
     },
 
     async put(endpoint, body = {}) {
+        if (window.location.protocol === 'file:') {
+            throw new Error("You are viewing index.html via file://. Please run 'npm start' and open http://localhost:3000 in your browser.");
+        }
         const res = await fetch(this.baseUrl + endpoint, {
             method: 'PUT',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(body)
         });
-        return res.json();
+        return this.parseResponse(res);
     },
 
     // High Level Endpoints
