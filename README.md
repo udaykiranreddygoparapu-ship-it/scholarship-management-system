@@ -98,13 +98,18 @@ erDiagram
 
 ## 🌐 Live Public Link & Permanent Cloud Deployment
 
-### 1. Permanent 24/7 Live Public URL (Vercel)
-You can access and evaluate the live application on any device across the internet at:
+### 1. Active Live Public Link (Instant Access)
+You can open and test the full application with live backend API right now at:
+👉 **[https://powder-daniel-bookmark-group.trycloudflare.com](https://powder-daniel-bookmark-group.trycloudflare.com)**
+*(Active live backend • Genuine 3NF SQLite Database • SSL Secured)*
+
+### 2. Permanent 24/7 Cloud URL (Vercel)
+The permanent global CDN URL:
 👉 **[https://permapath.vercel.app/](https://permapath.vercel.app/)**
 *(Live 24/7 • SSL Secured • Fast Global CDN • Zero Configuration Required)*
 
-### 2. Alternative Cloud Deployment (Render.com)
-Deploy this repository to **Render** for an additional free, permanent 24/7 live URL (`https://<your-app-name>.onrender.com`):
+### 3. Permanent 24/7 Cloud URL (Render.com)
+Deploy this repository to **Render** for a free, permanent 24/7 live URL (`https://<your-app-name>.onrender.com`):
 
 [![Deploy to Render](https://render.com/images/deploy-to-render-button.svg)](https://render.com/deploy?repo=https://github.com/udaykiranreddygoparapu-ship-it/scholarship-management-system)
 
