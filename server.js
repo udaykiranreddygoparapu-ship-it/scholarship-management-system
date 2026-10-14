@@ -17,6 +17,23 @@ app.use(cors());
 app.use(express.json());
 app.use(express.static(path.join(__dirname, 'public')));
 
+// Middleware: Ensure database is initialized before serving requests (critical for serverless)
+let initPromise = null;
+app.use(async (req, res, next) => {
+    try {
+        if (!dbManager.isInitialized) {
+            if (!initPromise) {
+                initPromise = dbManager.init();
+            }
+            await initPromise;
+        }
+        next();
+    } catch (err) {
+        console.error('Database initialization error:', err);
+        res.status(500).json({ success: false, error: 'Database initialization failed: ' + err.message });
+    }
+});
+
 // ----------------------------------------------------------------------------
 // API: SYSTEM HEALTH & METRICS
 // ----------------------------------------------------------------------------
@@ -1422,4 +1439,8 @@ async function startServer() {
     }
 }
 
-startServer();
+if (!process.env.VERCEL) {
+    startServer();
+}
+
+module.exports = app;

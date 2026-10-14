@@ -18,7 +18,20 @@ class DatabaseManager {
     async init() {
         if (this.isInitialized) return this.db;
 
-        const SQL = await initSqlJs();
+        let SQL;
+        try {
+            SQL = await initSqlJs({
+                locateFile: file => {
+                    const localPath = path.join(__dirname, file);
+                    if (fs.existsSync(localPath)) return localPath;
+                    const nodeModulesPath = path.join(__dirname, '..', 'node_modules', 'sql.js', 'dist', file);
+                    if (fs.existsSync(nodeModulesPath)) return nodeModulesPath;
+                    return file;
+                }
+            });
+        } catch (e) {
+            SQL = await initSqlJs();
+        }
         this.db = new SQL.Database();
 
         // 1. Load and execute DDL Schema
