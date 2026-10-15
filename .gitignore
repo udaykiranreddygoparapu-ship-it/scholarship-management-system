@@ -53,3 +53,5 @@ scratch/
 .system_generated/
 logs/
 *.log
+.vercel
+.env*
