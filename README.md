@@ -100,7 +100,7 @@ erDiagram
 
 ### 1. Active Live Public Link (Instant Access)
 You can open and test the full application with live backend API right now at:
-👉 **[https://powder-daniel-bookmark-group.trycloudflare.com](https://powder-daniel-bookmark-group.trycloudflare.com)**
+👉 **[https://decide-warming-rio-manitoba.trycloudflare.com](https://decide-warming-rio-manitoba.trycloudflare.com)**
 *(Active live backend • Genuine 3NF SQLite Database • SSL Secured)*
 
 ### 2. Permanent 24/7 Cloud URL (Vercel)
