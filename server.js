@@ -17,6 +17,17 @@ app.use(cors());
 app.use(express.json());
 app.use(express.static(path.join(__dirname, 'public')));
 
+// Middleware: Normalize incoming URL for Vercel Serverless Function rewrites & catch-all routes
+app.use((req, res, next) => {
+    if (!req.url.startsWith('/api')) {
+        const isStatic = req.url === '/' || /\.(html|css|js|json|png|jpg|jpeg|gif|svg|ico|wasm)$/i.test(req.url);
+        if (!isStatic) {
+            req.url = '/api' + (req.url.startsWith('/') ? req.url : '/' + req.url);
+        }
+    }
+    next();
+});
+
 // Middleware: Ensure database is initialized before serving requests (critical for serverless)
 let initPromise = null;
 app.use(async (req, res, next) => {

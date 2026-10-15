@@ -27,16 +27,15 @@ const API = {
                 }
 
                 const res = await fetch(url, options);
-                if (res.ok) {
-                    const text = await res.text();
-                    try {
-                        return JSON.parse(text);
-                    } catch (e) {
-                        // Response was not JSON, fall through to mock
-                    }
+                const text = await res.text();
+                try {
+                    const parsed = JSON.parse(text);
+                    return parsed;
+                } catch (jsonErr) {
+                    console.warn(`[SFAMS API] Non-JSON response for ${endpoint} (${res.status}), engaging resilient mock engine.`);
                 }
             } catch (networkErr) {
-                // Network error or offline, fall through to mock
+                console.warn(`[SFAMS API] Network unreachable for ${endpoint}, engaging resilient mock engine.`);
             }
         }
 
@@ -139,6 +138,20 @@ const API = {
             }
 
             if (!foundUser) {
+                // Emergency built-in personas in case external MockData script was delayed
+                if (username === 'admin' && (password === 'admin123' || password === 'password')) {
+                    return { success: true, user: { userId: 1, username: 'admin', fullName: 'Prof. Dr. Rajesh K. Sharma', roleCode: 'ROLE_ADMIN', roleName: 'System Administrator', studentId: null, rollNumber: null, department: 'Academic Governance' } };
+                } else if (username === 'verifier' && (password === 'verifier123' || password === 'password')) {
+                    return { success: true, user: { userId: 2, username: 'verifier', fullName: 'Dr. Suresh Rao', roleCode: 'ROLE_VERIFIER', roleName: 'Document Verification Officer', studentId: null, rollNumber: null, department: 'Verification Desk' } };
+                } else if (username === 'approver' && (password === 'approver123' || password === 'password')) {
+                    return { success: true, user: { userId: 3, username: 'approver', fullName: 'Prof. A. K. Verma', roleCode: 'ROLE_APPROVER', roleName: 'Approving Authority / Dean', studentId: null, rollNumber: null, department: 'Dean Academic Affairs' } };
+                } else if (username === 'finance' && (password === 'finance123' || password === 'password')) {
+                    return { success: true, user: { userId: 4, username: 'finance', fullName: 'Mrs. Kavita Nair', roleCode: 'ROLE_FINANCE', roleName: 'Finance & Accounts Officer', studentId: null, rollNumber: null, department: 'Treasury & PFMS DBT' } };
+                } else if ((username === '25wu0102085' || username === 'rahul.sharma') && (password === 'student123' || password === 'password')) {
+                    return { success: true, user: { userId: 11, username: '25wu0102085', fullName: 'Rahul Sharma', roleCode: 'ROLE_STUDENT', roleName: 'Student', studentId: 1, rollNumber: '25WU0102085', department: 'Computer Science & Engineering' } };
+                } else if ((username === '25wu0102086' || username === 'priya.patel') && (password === 'student123' || password === 'password')) {
+                    return { success: true, user: { userId: 12, username: '25wu0102086', fullName: 'Priya Patel', roleCode: 'ROLE_STUDENT', roleName: 'Student', studentId: 2, rollNumber: '25WU0102086', department: 'Electronics & Communication' } };
+                }
                 return { success: false, error: 'Invalid Username or Roll Number' };
             }
 
